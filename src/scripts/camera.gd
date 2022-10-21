@@ -1,16 +1,12 @@
 extends Camera2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var map
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
+	map = get_parent().get_node("level")
+	zoom *= map.level_scaling
 
 func _process(delta):
-	position.x = get_parent().get_node("level").current_level_center.x
-	position.y = get_parent().get_node("level").current_level_center.y
+	position.x = map.current_level_center.x
+	position.y = map.current_level_center.y
