@@ -3,6 +3,7 @@ extends Node2D
 export var level_dimensions := Vector2(16,10)
 export var level_scaling := 2
 export var level_cell_size := 64
+export var level_difficulty := 1
 
 onready var player = $player
 onready var nav = $Navigation2D
@@ -31,13 +32,9 @@ func update_current_level():
 	else:
 		current_level.y = int(($player.position.y-dimensions.y/2)/dimensions.y)
 	
-	#current_level_center = level_dimensions * current_level + level_dimensions/2
-	print(current_level)
 	current_level_center = dimensions * current_level + dimensions/2
-	#current_level_center.y += 32
 
 
 func _on_Timer_timeout():
 	get_tree().call_group("Bat", "get_target_path", player.position)
-	pass # Replace with function body.
 
