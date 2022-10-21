@@ -35,6 +35,7 @@ onready var right_wall_ray = $RayCastContainer/RayWallRight
 onready var left_wall_ray = $RayCastContainer/RayWallLeft
 
 func _ready():
+	stats.set_parent(self)
 	stats.level_progression = true
 
 func _physics_process(delta):
