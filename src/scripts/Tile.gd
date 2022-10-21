@@ -38,7 +38,14 @@ func set_autotile_coord(position:Vector2) -> void:
 func get_autotile_coord() -> Vector2:
 	return autotile_coord
 
-func _init(p_position, p_tile, p_flip_x=false, p_flip_y=false, p_transpose=false, p_autotile_coord=Vector2(0,0)):
+func _init(
+		p_position,
+		p_tile,
+		p_flip_x=false,
+		p_flip_y=false,
+		p_transpose=false,
+		p_autotile_coord=Vector2(0,0)
+	):
 	position = p_position
 	tile = p_tile
 	flip_x = p_flip_x

@@ -22,21 +22,26 @@ func add_tile(tile):
 
 func from_json(json):
 	var tileset = JSON.parse(json)
-	for tile in tileset:
-		add_tile(
-			Tile.new(
-				Vector2(tileset["x"], tileset["y"]),
-				tileset["tile"],
-				tileset["flip_x"],
-				tileset["flip_y"],
-				tileset["transpose"],
-				Vector2(
-					tileset["autotile_coord_x"],
-					tileset["autotile_coord_y"]
+	
+	if typeof(tileset.result) == TYPE_ARRAY:
+		for tile in tileset.result:
+			add_tile(
+				Tile.new(
+					Vector2(tile["x"], tile["y"]),
+					tile["tile"],
+					tile["flip_x"],
+					tile["flip_y"],
+					tile["transpose"],
+					Vector2(
+						tile["autotile_coord_x"],
+						tile["autotile_coord_y"]
+					)
 				)
 			)
-		)
-	return self
+		return self
+	else:
+		push_error("Unexpected results.")
+		return self
 
 func to_json():
 	var tileset = []
