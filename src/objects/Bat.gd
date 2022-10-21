@@ -39,6 +39,7 @@ func get_target_path(target_pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+export var exp_given := 50
 func _on_Area2D_area_entered(area):
 	if (area.is_in_group("Sword")):
 		var sword = area.get_parent()
@@ -51,6 +52,7 @@ func _on_Area2D_area_entered(area):
 			yield(blink(), "completed")
 			health -= sword.damage
 			if (health <= 0):
+				sword.get_parent().get_parent().giveExp(exp_given)
 				queue_free()
 		
 func blink():

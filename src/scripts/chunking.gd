@@ -23,7 +23,6 @@ func _ready():
 			bounds_min.y = int(pos.y)
 		elif pos.y > bounds_max.y:
 			bounds_max.y = int(pos.y)
-	print(bounds_min, bounds_max)
 	for x in range(bounds_min.x+1, bounds_max.x):
 		for y in range(bounds_min.y+1, bounds_max.y):
 			if get_cell(x, y) == -1:

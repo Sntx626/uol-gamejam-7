@@ -15,6 +15,7 @@ export var max_horizonzal_speed := 480
 export var max_fall_speed := 1000
 export var jump_height := -1000
 export var knockback := 600
+export var max_health := 3
 export var health := 3
 export var squash_speed := 0.05
 
@@ -36,7 +37,20 @@ onready var ground_ray = $RayCastContainer/RayGround
 onready var ground_ray2 = $RayCastContainer/RayGround2
 onready var right_wall_ray = $RayCastContainer/RayWallRight
 onready var left_wall_ray = $RayCastContainer/RayWallLeft
+var level := 1
+var experience := 0
+var experience_req := 100
 
+func giveExp(amount):
+	experience += amount
+	while experience >= experience_req:
+		experience -= experience_req
+		LvlUp()
+
+func LvlUp():
+	print(level)
+	level += 1
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
