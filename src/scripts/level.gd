@@ -37,4 +37,3 @@ func update_current_level():
 
 func _on_Timer_timeout():
 	get_tree().call_group("Bat", "get_target_path", player.position)
-
