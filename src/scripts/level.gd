@@ -3,6 +3,7 @@ extends Node2D
 export var level_dimensions := Vector2(16,10)
 export var level_scaling := 2
 export var level_cell_size := 64
+export var level_difficulty := 1
 
 onready var player = $player
 onready var nav = $Navigation2D
