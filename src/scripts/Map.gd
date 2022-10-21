@@ -1,12 +1,9 @@
 extends Node
 
 
-var Tile = load("rsc://scripts/Tile.gd")
+const Tile = preload("Tile.gd")
 
-var tiles
-
-func _ready():
-	tiles = []
+var tiles = []
 
 func get_size() -> int:
 	var size = Vector2(0,0)
