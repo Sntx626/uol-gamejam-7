@@ -21,8 +21,8 @@ func setHealth():
 
 func setExperienceBar():
 	levelLabel.set_text(str(player.stats.level))
-	experienceBar.max_value = player.stats.experience_req
 	experienceBar.value = player.stats.experience
+	experienceBar.max_value = player.stats.experience_req
 	experienceLabel.set_text(str(player.stats.experience * 100 / player.stats.experience_req) + "%")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
