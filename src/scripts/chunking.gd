@@ -10,7 +10,6 @@ func _ready():
 	var map = Map.new()
 	map.name = "testing"
 	
-	print(get_used_cells())
 	for cell in get_used_cells():
 		var t = Tile.new(
 			cell,

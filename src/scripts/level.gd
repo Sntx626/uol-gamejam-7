@@ -1,7 +1,7 @@
 extends Node2D
 
-export var level_dimensions := Vector2(16,9)
-export var level_scaling := 1
+export var level_dimensions := Vector2(16,10)
+export var level_scaling := 2
 export var level_cell_size := 64
 
 var current_level
@@ -32,3 +32,4 @@ func update_current_level():
 		current_level.y = int($player.position.y/(level_dimensions.y))-1
 	
 	current_level_center = level_dimensions * current_level + level_dimensions/2
+	#current_level_center.y += 32
