@@ -15,9 +15,15 @@ func _ready():
 
 func _process(delta):
 	setExperienceBar()
+	setHealth()
+
+var atlasHealthSize = Vector2(10, 10)
 
 func setHealth():
-	pass
+	var healthProcent = 1-float(player.health)/player.max_health
+	var index = int(healthProcent * 97)
+	print(98*(index%10), "|", 96*(index/10))
+	healthTexture.texture.region = Rect2(98*(index%10), 96*(index/10), 98, 96)
 
 func setExperienceBar():
 	levelLabel.set_text(str(player.stats.level))

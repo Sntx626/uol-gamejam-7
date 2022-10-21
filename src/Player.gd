@@ -139,9 +139,10 @@ func _on_Hurtbox_area_entered(area):
 		knockpower *= -1
 		velocity = knockpower
 		yield(blink(), "completed")
-		stats.health -= 1
-		if (stats.health <= 0):
-			queue_free()
+		health -= 1
+		if (health <= 0):
+			health = 0
+			visible = false
 	
 func blink():
 	ani.visible = false
