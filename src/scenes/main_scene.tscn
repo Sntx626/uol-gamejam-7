@@ -8,6 +8,5 @@
 [node name="ui" parent="." instance=ExtResource( 2 )]
 
 [node name="level" parent="." instance=ExtResource( 1 )]
-position = Vector2( 220, 424 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
