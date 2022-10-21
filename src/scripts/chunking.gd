@@ -3,7 +3,7 @@ extends TileMap
 const Tile = preload("Tile.gd")
 const Map = preload("Map.gd")
 const Map_Loader = preload("Map_Loader.gd")
-const DEFAULT_TTL = 10
+export var DEFAULT_TTL = 3
 
 var map_loader = Map_Loader.new()
 var rng = RandomNumberGenerator.new()
@@ -66,19 +66,13 @@ func manage_loaded_maps(delta):
 				maps[rng.randi_range(0,maps.size()-1)],
 				level
 			)
-	#print(current_level + current_relative_index)
 	for level in loaded_maps.keys():
-		loaded_maps[level][1] -= delta*100
-	for level in loaded_maps.keys():
-		# renew (active) loaded_maps
-		if (level.x <= current_level.x + 1 and
-			level.x >= current_level.x - 1 and
-			level.y <= current_level.y + 1 and
-			level.y >= current_level.y - 1):
+		if level in active_level:
 				loaded_maps[level][1] = DEFAULT_TTL
-	for level in loaded_maps.keys():
-		if loaded_maps[level][1] <= 0:
-			unload_level(level)
+		else:
+			loaded_maps[level][1] -= delta
+			if loaded_maps[level][1] <= 0:
+				unload_level(level)
 
 func load_level(map:Map, level:Vector2):
 	var parent = get_parent().get_parent()
