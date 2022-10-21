@@ -1,17 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/tiles/InnerWalls_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/level.gd" type="Script" id=3]
 [ext_resource path="res://scripts/chunking.gd" type="Script" id=4]
-[ext_resource path="res://objects/BlueSlime.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
 level_scaling = 2
-
-[node name="KinematicBody2D" parent="." instance=ExtResource( 5 )]
-position = Vector2( 61, 265 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -22,12 +18,3 @@ script = ExtResource( 4 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -398, 163 )
-
-[node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 350, 138 )
-
-[node name="KinematicBody2D3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 845, -3 )
-
-[node name="KinematicBody2D4" parent="." instance=ExtResource( 5 )]
-position = Vector2( -182, 411 )
