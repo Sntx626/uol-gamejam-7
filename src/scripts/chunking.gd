@@ -30,8 +30,9 @@ func _ready():
 	#update_dirty_quadrants()
 	#save_current_map("simple2")
 	clear()
-	maps.append(map_loader.load_map("simple1"))
-	maps.append(map_loader.load_map("simple2"))
+	maps.append(map_loader.load_map("testing"))
+	#maps.append(map_loader.load_map("simple1"))
+	#maps.append(map_loader.load_map("simple2"))
 	#manage_loaded_maps(1)
 
 func _physics_process(delta):

@@ -34,6 +34,9 @@ onready var ground_ray2 = $RayCastContainer/RayGround2
 onready var right_wall_ray = $RayCastContainer/RayWallRight
 onready var left_wall_ray = $RayCastContainer/RayWallLeft
 
+func _ready():
+	stats.level_progression = true
+
 func _physics_process(delta):
 	check_ground_logic()
 	handle_input(delta)

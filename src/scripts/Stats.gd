@@ -1,10 +1,14 @@
 extends Node
 
 
-export var knockback := 600
 export var max_health := 3
 var health = max_health
 
+export var attackSpeed = 15
+export var attackDamage = 100
+export var knockback := 600
+
+export var level_progression := false
 var level := 1
 var experience := 0
 var experience_a := 0
@@ -25,4 +29,7 @@ func giveExp(amount):
 		print(experience_req)
 
 func LvlUp():
-	level += 1
+	if level_progression:
+		level += 1
+		max_health += 0.5
+		health = min(health+max_health/level, max_health)
