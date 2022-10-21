@@ -1,25 +1,22 @@
 extends Node
 
 
-class tile(Object):
-	var pos:Vector2
+var Tile = load("rsc://scripts/Tile.gd")
+var Map = load("rsc://scripts/Map.gd")
 
-	func new(position:Vector):
-		pos = position
+func load_map(name):
+	var file = File.new()
+	file.open("rsc://maps/" + name + ".json", File.READ)
+	var content = file.get_as_text()
+	file.close()
 
-class map(Object):
-	var tiles = []
+	var map = Map.new(name)
+	map.from_json(content)
 
+	return map
 
-func load_map():
-    var file = File.new()
-    file.open("user://save_game.dat", File.READ)
-    var content = file.get_as_text()
-    file.close()
-    return content
-
-func save_map():
-    var file = File.new()
-    file.open("user://save_game.dat", File.WRITE)
-    file.store_string(content)
-    file.close()
+func save_map(map):
+	var file = File.new()
+	file.open("rsc://maps/" + name + ".json", File.WRITE)
+	file.store_string(map.to_json())
+	file.close()
