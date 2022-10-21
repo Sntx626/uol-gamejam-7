@@ -19,7 +19,7 @@ tile_data = PoolIntArray( -589840, 0, 196609, -589839, 0, 196610, -589838, 0, 19
 script = ExtResource( 4 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -4, 159 )
+position = Vector2( -487, -16 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.559
