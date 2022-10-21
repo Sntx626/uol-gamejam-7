@@ -53,7 +53,7 @@ func _on_Area2D_area_entered(area):
 			yield(blink(), "completed")
 			health -= sword.damage
 			if (health <= 0):
-				sword.get_parent().get_parent().giveExp(exp_given)
+				sword.get_parent().get_parent().stats.giveExp(exp_given)
 				queue_free()
 			
 		
