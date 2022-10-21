@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/skeleton-carnival.mp3-ae44dd6b391e858392bf84635325fe57.mp3str"
+
+[deps]
+
+source_file="res://music/skeleton-carnival.mp3"
+dest_files=[ "res://.import/skeleton-carnival.mp3-ae44dd6b391e858392bf84635325fe57.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
