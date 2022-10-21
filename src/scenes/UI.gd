@@ -20,9 +20,8 @@ func _process(delta):
 var atlasHealthSize = Vector2(10, 10)
 
 func setHealth():
-	var healthProcent = 1-float(player.health)/player.max_health
+	var healthProcent = 1-float(player.stats.health)/player.stats.max_health
 	var index = int(healthProcent * 97)
-	print(98*(index%10), "|", 96*(index/10))
 	healthTexture.texture.region = Rect2(98*(index%10), 96*(index/10), 98, 96)
 
 func setExperienceBar():
@@ -30,7 +29,3 @@ func setExperienceBar():
 	experienceBar.value = player.stats.experience
 	experienceBar.max_value = player.stats.experience_req
 	experienceLabel.set_text(str(player.stats.experience * 100 / player.stats.experience_req) + "%")
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
