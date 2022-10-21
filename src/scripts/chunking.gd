@@ -131,3 +131,5 @@ func spawn_enemy(parent, pos:Vector2) -> void:
 	var e = Enemy.new().get_enemy()
 	e.position = pos
 	parent.add_child(e)
+	if e.has_method("init"):
+		e.init(parent)
