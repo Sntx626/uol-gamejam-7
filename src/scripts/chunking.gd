@@ -51,21 +51,22 @@ func save_current_map(name:String):
 	
 	#update_dirty_quadrants()
 
+func get_active_level(level) -> Array:
+	var active_level = []
+	for i in range(9):
+		active_level.append(level + Vector2(int((i)%3), int((i)/3)) + Vector2(-1, -1))
+	return active_level
+
 func manage_loaded_maps(delta):
 	var current_level = get_parent().get_parent().current_level
-	for i in range(9):
-		var current_relative_index = Vector2(int((i+1)%3), int((i+1)/3)) + Vector2(-1, -1)
-		var level_loaded = false
-		for level in loaded_maps.keys():
-			if (level.x == current_relative_index.x and
-				level.y == current_relative_index.y):
-				level_loaded = true
-		if !level_loaded:
+	var active_level = get_active_level(current_level)
+	for level in active_level:
+		if not level in loaded_maps.keys():
 			load_level(
 				maps[rng.randi_range(0,maps.size()-1)],
-				current_level + current_relative_index
+				level
 			)
-			print(current_level + current_relative_index)
+	#print(current_level + current_relative_index)
 	for level in loaded_maps.keys():
 		loaded_maps[level][1] -= delta*100
 	for level in loaded_maps.keys():
