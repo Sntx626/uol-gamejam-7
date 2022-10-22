@@ -45,7 +45,8 @@ func _on_Area2D_area_entered(area):
 		var sword = area.get_parent()
 		if (sword.is_swinging):
 			var knockpower = Vector2(sword.knockback, 0)
-			knockpower = knockpower.rotated(get_angle_to(sword.position)+deg2rad(144))
+			knockpower = knockpower.rotated(position.angle_to_point(sword.get_parent().get_parent().position))
+			print(sword.get_parent().get_parent().position, "|", position)
 			velocity = knockpower
 			print(knockpower)
 			blink()
