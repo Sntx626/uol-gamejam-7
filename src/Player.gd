@@ -23,11 +23,14 @@ var is_jumping := false
 var air_jump_pressed := false
 var coyote_time := false
 
+var is_swinging := false
+
 var velocity := Vector2.ZERO
 var motion := Vector2.ZERO
 var UP := Vector2.UP
 
 onready var ani = $PlayerSprite
+onready var aniArm = $Arm1
 onready var ground_ray = $RayCastContainer/RayGround
 onready var ground_ray2 = $RayCastContainer/RayGround2
 onready var right_wall_ray = $RayCastContainer/RayWallRight
