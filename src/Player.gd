@@ -29,6 +29,9 @@ var UP := Vector2.UP
 
 onready var ani = $PlayerSprite
 onready var ground_ray = $RayCastContainer/RayGround
+onready var ground_ray2 = $RayCastContainer/RayGround2
+onready var right_wall_ray = $RayCastContainer/RayWallRight
+onready var left_wall_ray = $RayCastContainer/RayWallLeft
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,14 +44,14 @@ func _physics_process(delta):
 	pass
 	
 func check_ground_logic():
-	if (touching_ground and !ground_ray.is_colliding()):
+	if (touching_ground and !(ground_ray.is_colliding() or ground_ray2.is_colliding())):
 		touching_ground = true
 		coyote_time = true
 		yield(get_tree().create_timer(0.2), "timeout")
 		coyote_time = false
-	if (!touching_ground and ground_ray.is_colliding()):
+	if (!touching_ground and (ground_ray.is_colliding() or ground_ray2.is_colliding())):
 		ani.scale = Vector2(1.2, 0.8)
-	touching_ground = ground_ray.is_colliding()
+	touching_ground = (ground_ray.is_colliding() or ground_ray2.is_colliding())
 	if (touching_ground):
 		is_jumping = false
 		motion.y = 0
@@ -114,7 +117,11 @@ func do_physics(var delta):
 	if (is_on_ceiling()):
 		motion.y = 10
 		velocity.y = 10
-		
+	if (right_wall_ray.is_colliding()):
+		velocity.x = min(velocity.x , 0)
+	if (left_wall_ray.is_colliding()):
+		velocity.x = max(velocity.x, 0)
+	
 	velocity.y += (gravity * delta)
 	
 	velocity.y = min(max_fall_speed, velocity.y)

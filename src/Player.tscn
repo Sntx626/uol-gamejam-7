@@ -21,9 +21,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 25.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 12, 31 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -40,13 +39,31 @@ frames = SubResource( 2 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 2 )
-shape = SubResource( 1 )
+position = Vector2( -1, 1 )
+shape = SubResource( 4 )
 
 [node name="RayCastContainer" type="Position2D" parent="."]
 
-[node name="RayGround" type="RayCast2D" parent="RayCastContainer"]
-position = Vector2( 0, 41 )
+[node name="RayWallRight" type="RayCast2D" parent="RayCastContainer"]
+position = Vector2( 13, 31 )
 enabled = true
-cast_to = Vector2( 10, 0 )
+cast_to = Vector2( 0, -64 )
+collision_mask = 4
+
+[node name="RayWallLeft" type="RayCast2D" parent="RayCastContainer"]
+position = Vector2( -15, 32 )
+enabled = true
+cast_to = Vector2( 0, -64 )
+collision_mask = 4
+
+[node name="RayGround2" type="RayCast2D" parent="RayCastContainer"]
+position = Vector2( -12, 39 )
+enabled = true
+cast_to = Vector2( 21, 0 )
+collision_mask = 4
+
+[node name="RayGround" type="RayCast2D" parent="RayCastContainer"]
+position = Vector2( 0, 29 )
+enabled = true
+cast_to = Vector2( 0, 11 )
 collision_mask = 4
