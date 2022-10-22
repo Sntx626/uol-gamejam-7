@@ -27,7 +27,7 @@ var velocity := Vector2.ZERO
 var motion := Vector2.ZERO
 var UP := Vector2.UP
 
-onready var ani = $AnimatedSprite
+onready var ani = $PlayerSprite
 onready var ground_ray = $RayCastContainer/RayGround
 
 # Called when the node enters the scene tree for the first time.
@@ -48,7 +48,6 @@ func check_ground_logic():
 		coyote_time = false
 	if (!touching_ground and ground_ray.is_colliding()):
 		ani.scale = Vector2(1.2, 0.8)
-	print(ground_ray.is_colliding())
 	touching_ground = ground_ray.is_colliding()
 	if (touching_ground):
 		is_jumping = false
@@ -69,7 +68,7 @@ func handle_movement(delta):
 				pass
 		elif (velocity.x < max_horizonzal_speed):
 			velocity.x += (acceleration * delta)
-			ani.flip_h = true
+			ani.flip_h = false
 			if (touching_ground):
 				pass
 		else:
@@ -82,7 +81,7 @@ func handle_movement(delta):
 				pass
 		elif (velocity.x > -max_horizonzal_speed):
 			velocity.x -= (acceleration * delta)
-			ani.flip_h = false
+			ani.flip_h = true
 			if (touching_ground):
 				pass
 		else:
