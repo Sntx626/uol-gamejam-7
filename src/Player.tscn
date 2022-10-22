@@ -46,7 +46,7 @@ shape = SubResource( 1 )
 [node name="RayCastContainer" type="Position2D" parent="."]
 
 [node name="RayGround" type="RayCast2D" parent="RayCastContainer"]
-position = Vector2( 0, 34 )
+position = Vector2( 0, 41 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 collision_mask = 4
