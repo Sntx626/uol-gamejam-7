@@ -1,18 +1,15 @@
 extends Node2D
 
-export var level_width := 16
-export var level_height := 9
+export var level_dimensions := Vector2(16,9)
 export var level_scaling := 1
 export var level_cell_size := 64
-var l_width
-var l_height
 
 var current_level
 var current_level_center
 
 func _ready():
-	l_width = level_width * level_scaling * level_cell_size
-	l_height = level_height * level_scaling * level_cell_size
+	level_dimensions = level_dimensions * level_scaling * level_cell_size
+	position = level_dimensions/2
 	current_level = Vector2(0,0)
 	current_level_center = Vector2(0,0)
 
@@ -20,14 +17,18 @@ func _physics_process(delta):
 	update_current_level()
 
 func update_current_level():
-	if $player.position.x >= 0:
-		current_level.x = int($player.position.x/(l_width))
+	if $player.position.x >= level_dimensions.x/2:
+		current_level.x = int($player.position.x/(level_dimensions.x))+1
+	elif $player.position.x < level_dimensions.x/2 and $player.position.x > -level_dimensions.x/2:
+		current_level.x = int($player.position.x/(level_dimensions.x))
 	else:
-		current_level.x = int($player.position.x/(l_width))-1
-	if $player.position.y >= 0:
-		current_level.y = int($player.position.y/(l_height))
+		current_level.x = int($player.position.x/(level_dimensions.x))-1
+		
+	if $player.position.y >= level_dimensions.y/2:
+		current_level.y = int($player.position.y/(level_dimensions.y))+1
+	elif $player.position.y < level_dimensions.y/2 and $player.position.y > -level_dimensions.y/2:
+		current_level.y = int($player.position.y/(level_dimensions.y))
 	else:
-		current_level.y = int($player.position.y/(l_height))-1
+		current_level.y = int($player.position.y/(level_dimensions.y))-1
 	
-	current_level_center.x = 1024 * current_level.x + 512
-	current_level_center.y = 576 * current_level.y + 288
+	current_level_center = level_dimensions * current_level + level_dimensions/2
