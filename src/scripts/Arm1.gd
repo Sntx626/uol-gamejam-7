@@ -8,12 +8,13 @@ extends AnimatedSprite
 
 export var attackSpeed = 10
 export var attackDamage = 10
+export var knockback = 1000
 
 var is_swinging := false
 
 
 onready var parentAni = get_parent().get_node("PlayerSprite")
-onready var sword := $Sword
+onready var sword := $SwordArea/Sword
 
 func _ready():
 	pass # Replace with function body.
@@ -29,19 +30,24 @@ func _process(delta):
 		offset.x = offset.x * -1
 		if (sword):
 			sword.position.x = sword.position.x * -1
-	print()
 	rotate(get_angle_to(get_global_mouse_position())+deg2rad(180 if flip_h else -0))
 
+		
 func _physics_process(delta):
 	handle_sword(delta)
 
 func handle_sword(var delta):
 	if (not is_swinging and Input.is_action_just_pressed("hit")):
-		print("Swing")
+		if ($SwordArea):
+			$SwordArea.monitorable = true
+			$SwordArea.monitoring = true
 		is_swinging = true
 		speed_scale = attackSpeed/10
 		play("hit")
 		yield(self, "animation_finished")
+		if ($SwordArea):
+			$SwordArea.monitorable = false
+			$SwordArea.monitoring = false
 		play("idle")
 		is_swinging = false
 	

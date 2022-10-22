@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/Playerwithoutarms.png" type="Texture" id=2]
@@ -94,60 +94,77 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 12, 31 )
+extents = Vector2( 25.5, 62 )
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 27.5, 62 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="Arm1" type="AnimatedSprite" parent="."]
 position = Vector2( 2, -19 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
-animation = "idle"
+animation = "hit"
+frame = 9
 playing = true
-offset = Vector2( 56, -45 )
+offset = Vector2( 59, -55 )
 script = ExtResource( 4 )
 
-[node name="Sword" type="CollisionShape2D" parent="Arm1"]
-position = Vector2( 43, -4.25 )
+[node name="SwordArea" type="Area2D" parent="Arm1" groups=["Sword"]]
+
+[node name="Sword" type="CollisionShape2D" parent="Arm1/SwordArea"]
+position = Vector2( 50, -3.5 )
 shape = SubResource( 6 )
 
 [node name="Arm2" type="AnimatedSprite" parent="."]
 position = Vector2( 2, -19 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
 animation = "idle"
-offset = Vector2( -10, 16 )
+offset = Vector2( -10, 8 )
 script = ExtResource( 4 )
 
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 1 )
+position = Vector2( -3.5, 2 )
 shape = SubResource( 4 )
 
 [node name="RayCastContainer" type="Position2D" parent="."]
 
 [node name="RayWallRight" type="RayCast2D" parent="RayCastContainer"]
-position = Vector2( 13, 31 )
+position = Vector2( 23, 64 )
 enabled = true
-cast_to = Vector2( 0, -64 )
+cast_to = Vector2( 0, -124 )
 collision_mask = 4
 
 [node name="RayWallLeft" type="RayCast2D" parent="RayCastContainer"]
-position = Vector2( -15, 32 )
+position = Vector2( -32, 64 )
 enabled = true
-cast_to = Vector2( 0, -64 )
+cast_to = Vector2( 0, -124 )
 collision_mask = 4
 
 [node name="RayGround2" type="RayCast2D" parent="RayCastContainer"]
-position = Vector2( -12, 39 )
+position = Vector2( -27, 68 )
 enabled = true
-cast_to = Vector2( 21, 0 )
+cast_to = Vector2( 47, 0 )
 collision_mask = 4
 
 [node name="RayGround" type="RayCast2D" parent="RayCastContainer"]
-position = Vector2( 0, 29 )
+position = Vector2( 0, 63 )
 enabled = true
 cast_to = Vector2( 0, 11 )
 collision_mask = 4
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( -3.5, 2 )
+shape = SubResource( 18 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
