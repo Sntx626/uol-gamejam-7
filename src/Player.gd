@@ -13,7 +13,7 @@ export var friction := 2000
 export var current_friction := 2000
 export var max_horizonzal_speed := 480
 export var max_fall_speed := 1000
-export var jump_height := -700
+export var jump_height := -1000
 export var knockback := 600
 
 export var squash_speed := 0.05
