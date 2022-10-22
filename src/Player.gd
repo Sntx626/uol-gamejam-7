@@ -19,7 +19,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_right"):
 		velocity.x += move_speed * delta
 	if Input.is_action_pressed("move_left"):
-		velocity.y -= move_speed * delta
+		velocity.x -= move_speed * delta
 		
 	velocity.y += gravity * delta
 	
