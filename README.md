@@ -28,3 +28,21 @@ Style
 
 Gameplay
 > Platformer c.f. Hollow Knight
+
+## Ideas
+
+- Lebensbalken (SAO like)
+- Chunked Tilesets
+- Hierarchical Ambience
+- Base Char -> Good stats, no abilities
+- Abilities poison stats
+- Make it appear as if the enemy was scaling up
+- Track rooms cleared, every x rooms upgrade, every x upgrades floor boss
+- Add a timer
+- We nees items
+- Snake problem pathfinding
+- Heute Feature complete -> move out of alpha
+- Morgen polishing complete -> move out of beta
+- Ich switche auf feaure-branches
+- Use github issues
+- Monolithic readme?
