@@ -12,8 +12,10 @@ export var knockback = 1000
 
 var is_swinging := false
 
+var position_right = Vector2(16, -41)
+var position_left = Vector2(-223, -41)
 
-onready var parentAni = get_parent().get_node("PlayerSprite")
+onready var parentAni = get_parent().get_parent().get_node("PlayerSprite")
 onready var sword := $SwordArea/Sword
 
 func _ready():
@@ -27,7 +29,8 @@ func _ready():
 func _process(delta):
 	if (not flip_h == parentAni.flip_h):
 		flip_h = parentAni.flip_h
-		offset.x = offset.x * -1
+		position.x *= -1
+		offset.x *= -1
 		if (sword):
 			sword.position.x = sword.position.x * -1
 	rotate(get_angle_to(get_global_mouse_position())+deg2rad(180 if flip_h else -0))
