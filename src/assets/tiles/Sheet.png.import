@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/InnerWalls.png-83c69acbd43b49185612047594951006.stex"
+path="res://.import/Sheet.png-e920dcd9be73b2046e16daf011666100.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/InnerWalls.png"
-dest_files=[ "res://.import/InnerWalls.png-83c69acbd43b49185612047594951006.stex" ]
+source_file="res://assets/tiles/Sheet.png"
+dest_files=[ "res://.import/Sheet.png-e920dcd9be73b2046e16daf011666100.stex" ]
 
 [params]
 
