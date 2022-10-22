@@ -21,4 +21,5 @@ func _process(delta):
 	if (not flip_h == parentAni.flip_h):
 		flip_h = parentAni.flip_h
 		offset.x = offset.x * -1
-	look_at(get_global_mouse_position())
+	print()
+	rotate(get_angle_to(get_global_mouse_position())+deg2rad(205 if flip_h else -25))
