@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/Playerwithoutarms.png" type="Texture" id=2]
@@ -13,6 +13,9 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 16.5 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
@@ -42,6 +45,10 @@ frames = SubResource( 3 )
 animation = "idle"
 offset = Vector2( 26, 24 )
 script = ExtResource( 4 )
+
+[node name="Sword" type="CollisionShape2D" parent="Arm1"]
+position = Vector2( 30, 23.5 )
+shape = SubResource( 6 )
 
 [node name="Arm2" type="AnimatedSprite" parent="."]
 position = Vector2( 2, -19 )

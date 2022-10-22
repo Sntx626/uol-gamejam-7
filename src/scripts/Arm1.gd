@@ -8,7 +8,7 @@ extends AnimatedSprite
 
 
 onready var parentAni = get_parent().get_node("PlayerSprite")
-
+onready var sword := $Sword
 func _ready():
 	pass # Replace with function body.
 
@@ -21,5 +21,7 @@ func _process(delta):
 	if (not flip_h == parentAni.flip_h):
 		flip_h = parentAni.flip_h
 		offset.x = offset.x * -1
+		if (sword):
+			sword.position.x = sword.position.x * -1
 	print()
 	rotate(get_angle_to(get_global_mouse_position())+deg2rad(205 if flip_h else -25))
