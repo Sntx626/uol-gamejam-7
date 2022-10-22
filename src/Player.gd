@@ -15,7 +15,7 @@ export var max_horizonzal_speed := 480
 export var max_fall_speed := 1000
 export var jump_height := -700
 
-export var squash_speed := 0.01
+export var squash_speed := 0.05
 
 var touching_ground := false
 var touching_wall := false
@@ -50,7 +50,7 @@ func check_ground_logic():
 		yield(get_tree().create_timer(0.2), "timeout")
 		coyote_time = false
 	if (!touching_ground and (ground_ray.is_colliding() or ground_ray2.is_colliding())):
-		ani.scale = Vector2(1.2, 0.8)
+		ani.scale = Vector2(1.1, 0.8)
 	touching_ground = (ground_ray.is_colliding() or ground_ray2.is_colliding())
 	if (touching_ground):
 		is_jumping = false
@@ -103,7 +103,7 @@ func handle_jumping(delta):
 		if (Input.is_action_just_pressed("jump") or air_jump_pressed):
 			velocity.y = jump_height
 			touching_ground = false
-			ani.scale = Vector2(0.5, 1.2)
+			ani.scale = Vector2(0.8, 1.1)
 	else:
 		if (velocity.y < 0 and !Input.is_action_pressed("jump")):
 			velocity.y = max(velocity.y, jump_height/2)
