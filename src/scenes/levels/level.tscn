@@ -1,21 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/tiles/InnerWalls_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/level.gd" type="Script" id=3]
 [ext_resource path="res://scripts/chunking.gd" type="Script" id=4]
 [ext_resource path="res://objects/BlueSlime.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/Bat.tscn" type="PackedScene" id=6]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
 level_scaling = 2
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 5 )]
+[node name="Bat1" parent="." instance=ExtResource( 6 )]
+position = Vector2( 531, 540 )
+
+[node name="BlueSlime4" parent="." instance=ExtResource( 5 )]
 position = Vector2( 61, 265 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Navigation2D"]
 tile_set = ExtResource( 1 )
 collision_layer = 4
+bake_navigation = true
 format = 1
 tile_data = PoolIntArray( -589841, 0, 458754, -589840, 0, 196610, -589839, 0, 196610, -589838, 0, 196610, -589837, 0, 196610, -589836, 0, 196610, -589835, 0, 196610, -589834, 0, 196610, -589833, 0, 196610, -589832, 0, 196610, -589831, 0, 196610, -589830, 0, 196610, -589829, 0, 196610, -589828, 0, 196610, -589827, 0, 196610, -589826, 0, 196610, -589825, 0, 196610, -655360, 0, 196610, -655359, 0, 196610, -655358, 0, 196610, -655357, 0, 196610, -655356, 0, 196610, -655355, 0, 196610, -655354, 0, 196610, -655353, 0, 196610, -655352, 0, 196610, -655351, 0, 196610, -655350, 0, 196610, -655349, 0, 196610, -655348, 0, 196610, -655347, 0, 196610, -655346, 0, 196610, -655345, 0, 196610, -655344, 0, 393223, -524305, 0, 327687, -589808, 0, 327687, -458769, 0, 327687, -524272, 0, 327687, -393233, 0, 327687, -458736, 0, 327687, -327697, 0, 327687, -393200, 0, 327687, -262161, 0, 327687, -327664, 0, 327687, -196625, 0, 327687, -262128, 0, 327687, -131089, 0, 327687, -196592, 0, 327687, -65553, 0, 327687, -131056, 0, 327687, -17, 0, 327687, -65520, 0, 327687, 65519, 0, 327687, 16, 0, 327687, 131055, 0, 327687, 65546, 0, 196609, 65547, 0, 196610, 65548, 0, 196610, 65549, 0, 196610, 65550, 0, 196610, 65551, 0, 196610, 65552, 0, 262151, 196591, 0, 327687, 196597, 2, 0, 131088, 0, 327687, 262127, 0, 327687, 196612, 0, 196609, 196613, 0, 196610, 196614, 0, 196610, 196615, 0, 196610, 196616, 0, 196611, 196624, 0, 327687, 327663, 0, 327687, 262160, 0, 327687, 393194, 0, 458754, 393195, 0, 196610, 393196, 0, 196610, 393197, 0, 196610, 393198, 0, 196610, 393199, 0, 458752, 393214, 0, 196609, 393215, 0, 196610, 327680, 0, 196610, 327681, 0, 196610, 327682, 0, 196611, 327696, 0, 458753, 327697, 0, 196610, 327698, 0, 196610, 327699, 0, 196610, 327700, 0, 196610, 327701, 0, 196610, 327702, 0, 393223, 458730, 0, 327687, 393238, 0, 327687, 524266, 0, 327687, 458774, 0, 327687, 589802, 0, 327687, 524310, 0, 327687, 655338, 0, 458753, 655339, 0, 196610, 655340, 0, 196610, 655341, 0, 196610, 655342, 0, 196610, 655343, 0, 196610, 655344, 0, 196610, 655345, 0, 196610, 655346, 0, 196610, 655347, 0, 196610, 655348, 0, 196610, 655349, 0, 196610, 655350, 0, 196610, 655351, 0, 196610, 655352, 0, 196610, 655353, 0, 196610, 655354, 0, 196610, 655355, 0, 196610, 655356, 0, 196610, 655357, 0, 196610, 655358, 0, 196610, 655359, 0, 196610, 589824, 0, 196610, 589825, 0, 196610, 589826, 0, 196610, 589827, 0, 196610, 589828, 0, 196610, 589829, 0, 196610, 589830, 0, 196610, 589831, 0, 196610, 589832, 0, 196610, 589833, 0, 196610, 589834, 0, 196610, 589835, 0, 196610, 589836, 0, 196610, 589837, 0, 196610, 589838, 0, 196610, 589839, 0, 196610, 589840, 0, 196610, 589841, 0, 196610, 589842, 0, 196610, 589843, 0, 196610, 589844, 0, 196610, 589845, 0, 196610, 589846, 0, 458752 )
 script = ExtResource( 4 )
@@ -23,11 +30,21 @@ script = ExtResource( 4 )
 [node name="player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -398, 163 )
 
-[node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
+[node name="BlueSlime3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 350, 138 )
 
-[node name="KinematicBody2D3" parent="." instance=ExtResource( 5 )]
+[node name="BlueSlime2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 845, -3 )
 
-[node name="KinematicBody2D4" parent="." instance=ExtResource( 5 )]
+[node name="BlueSlime1" parent="." instance=ExtResource( 5 )]
 position = Vector2( -182, 411 )
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 0, 0, 0, 0 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.147
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -4,6 +4,9 @@ export var level_dimensions := Vector2(16,9)
 export var level_scaling := 1
 export var level_cell_size := 64
 
+onready var player = $player
+onready var nav = $Navigation2D
+
 var current_level
 var current_level_center
 
@@ -32,3 +35,8 @@ func update_current_level():
 		current_level.y = int($player.position.y/(level_dimensions.y))-1
 	
 	current_level_center = level_dimensions * current_level + level_dimensions/2
+
+
+func _on_Timer_timeout():
+	get_tree().call_group("Bat", "get_target_path", player.position)
+	pass # Replace with function body.
