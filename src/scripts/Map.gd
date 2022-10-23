@@ -21,20 +21,39 @@ func add_tile(tile):
 	tiles.append(tile)
 
 func from_json(json):
-	var temp = JSON.parse(json)
-	for tile in temp:
-		var t = Tile.new()
-		t.set_tileset(tile["tileset"])
-		t.set_position(Vector2(tile["x"], tile["y"]))
-		add_tile(t)
-	return self
+	var tileset = JSON.parse(json)
+	
+	if typeof(tileset.result) == TYPE_ARRAY:
+		for tile in tileset.result:
+			add_tile(
+				Tile.new(
+					Vector2(tile["x"], tile["y"]),
+					tile["tile"],
+					tile["flip_x"],
+					tile["flip_y"],
+					tile["transpose"],
+					Vector2(
+						tile["autotile_coord_x"],
+						tile["autotile_coord_y"]
+					)
+				)
+			)
+		return self
+	else:
+		push_error("Unexpected results.")
+		return self
 
 func to_json():
-	var temp = []
+	var tileset = []
 	for tile in tiles:
-		temp.append({
-			"tileset": tile.get_tileset(),
+		tileset.append({
 			"x": tile.get_position().x,
-			"y": tile.get_position().y
+			"y": tile.get_position().y,
+			"tile": tile.get_tile(),
+			"flip_x": tile.get_flip_x(),
+			"flip_y": tile.get_flip_y(),
+			"transpose": tile.get_transpose(),
+			"autotile_coord_x": tile.get_autotile_coord().x,
+			"autotile_coord_y": tile.get_autotile_coord().y
 		})
-	return JSON.print(temp)
+	return JSON.print(tileset, "\t")
