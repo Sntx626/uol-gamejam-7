@@ -21,20 +21,18 @@ func _physics_process(delta):
 	update_current_level()
 
 func update_current_level():
-	if $player.position.x >= dimensions.x/2:
-		current_level.x = int($player.position.x/(dimensions.x))+1
-	elif $player.position.x < dimensions.x/2 and $player.position.x > -dimensions.x/2:
-		current_level.x = int($player.position.x/(dimensions.x))
+	if $player.position.x >= 0:
+		current_level.x = int(($player.position.x+dimensions.x/2)/dimensions.x)
 	else:
-		current_level.x = int($player.position.x/(dimensions.x))-1
+		current_level.x = int(($player.position.x-dimensions.x/2)/dimensions.x)
 		
-	if $player.position.y >= dimensions.y/2:
-		current_level.y = int($player.position.y/(dimensions.y))+1
-	elif $player.position.y < dimensions.y/2 and $player.position.y > -dimensions.y/2:
-		current_level.y = int($player.position.y/(dimensions.y))
+	if $player.position.y >= 0:
+		current_level.y = int(($player.position.y+dimensions.y/2)/dimensions.y)
 	else:
-		current_level.y = int($player.position.y/(dimensions.y))-1
-	current_level_center = level_dimensions * current_level + level_dimensions/2
+		current_level.y = int(($player.position.y-dimensions.y/2)/dimensions.y)
+	
+	#current_level_center = level_dimensions * current_level + level_dimensions/2
+	print(current_level)
 	current_level_center = dimensions * current_level + dimensions/2
 	#current_level_center.y += 32
 
