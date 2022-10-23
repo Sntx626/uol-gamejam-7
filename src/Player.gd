@@ -15,6 +15,7 @@ export var max_horizonzal_speed := 480
 export var max_fall_speed := 1000
 export var jump_height := -1000
 export var knockback := 600
+export var max_health := 3
 export var health := 3
 export var squash_speed := 0.05
 
