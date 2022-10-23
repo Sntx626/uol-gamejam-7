@@ -16,6 +16,7 @@ func _process(delta):
 	setExperienceBar()
 
 func setExperienceBar():
+	
 	levelLabel.set_text(str(player.level))
 	experienceBar.max_value = player.experience_req
 	experienceBar.value = player.experience

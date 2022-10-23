@@ -44,8 +44,10 @@ func giveExp(amount):
 	experience += amount
 	while experience >= experience_req:
 		experience -= experience_req
+		LvlUp()
 
 func LvlUp():
+	print(level)
 	level += 1
 	pass
 # Called when the node enters the scene tree for the first time.

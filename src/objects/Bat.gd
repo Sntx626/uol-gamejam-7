@@ -8,12 +8,11 @@ export var speed = 150
 var velocity = Vector2.ZERO
 var path = []
 var threshold = 16
-var nav = null
+var nav
 export var health := 100
 onready var ani = $AnimatedSprite
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	yield(owner, "ready")
+
+func init(owner):
 	nav = owner.nav
 
 func _physics_process(delta):
@@ -34,7 +33,8 @@ func move_to_target():
 		velocity = move_and_slide(velocity)
 		
 func get_target_path(target_pos):
-	path = nav.get_simple_path(position, target_pos, true)
+	if nav:
+		path = nav.get_simple_path(position, target_pos, true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -52,7 +52,7 @@ func _on_Area2D_area_entered(area):
 			yield(blink(), "completed")
 			health -= sword.damage
 			if (health <= 0):
-				sword.get_paretn().get_parent().giveExp(exp_given)
+				sword.get_parent().get_parent().giveExp(exp_given)
 				queue_free()
 		
 func blink():
