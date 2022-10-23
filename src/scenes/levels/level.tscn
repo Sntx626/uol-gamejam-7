@@ -11,10 +11,7 @@
 script = ExtResource( 3 )
 level_scaling = 2
 
-[node name="Bat1" parent="." instance=ExtResource( 6 )]
-position = Vector2( 531, 540 )
-
-[node name="BlueSlime4" parent="." instance=ExtResource( 5 )]
+[node name="KinematicBody2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 61, 265 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
@@ -30,21 +27,19 @@ script = ExtResource( 4 )
 [node name="player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -398, 163 )
 
-[node name="BlueSlime3" parent="." instance=ExtResource( 5 )]
+[node name="KinematicBody2D5" parent="." instance=ExtResource( 6 )]
+
+[node name="KinematicBody2D2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 350, 138 )
 
-[node name="BlueSlime2" parent="." instance=ExtResource( 5 )]
+[node name="KinematicBody2D3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 845, -3 )
 
-[node name="BlueSlime1" parent="." instance=ExtResource( 5 )]
+[node name="KinematicBody2D4" parent="." instance=ExtResource( 5 )]
 position = Vector2( -182, 411 )
 
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-points = PoolVector2Array( 0, 0, 0, 0 )
-
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.147
+wait_time = 0.559
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

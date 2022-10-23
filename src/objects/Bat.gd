@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 300
+export var speed = 150
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -9,7 +9,7 @@ var velocity = Vector2.ZERO
 var path = []
 var threshold = 16
 var nav = null
-
+onready var ani = $AnimatedSprite
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	yield(owner, "ready")
@@ -24,14 +24,37 @@ func move_to_target():
 		path.remove(0)
 	else:
 		var direction = position.direction_to(path[0])
-		velocity = direction * speed
+		
+		var goal = direction * speed
+		var dif = goal - velocity
+		dif.x = min(50, abs(dif.x)) * sign(dif.x)
+		dif.y = min(50, abs(dif.y)) * sign(dif.y)
+		velocity += dif 
 		velocity = move_and_slide(velocity)
 		
 func get_target_path(target_pos):
-	print(position, target_pos, nav.get_simple_path(position, target_pos, false))
 	path = nav.get_simple_path(position, target_pos, true)
-	owner.get_node("Line2D").points = path
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+func _on_Area2D_area_entered(area):
+	if (area.is_in_group("Sword")):
+		var sword = area.get_parent()
+		if (sword.is_swinging):
+			var knockpower = Vector2(sword.knockback, 0)
+			knockpower = knockpower.rotated(position.angle_to_point(sword.get_parent().get_parent().position))
+			#print(sword.get_parent().get_parent().position, "|", position)
+			velocity = knockpower
+			#print(knockpower)
+			blink()
+			blink()
+		
+func blink():
+	ani.visible = false
+	yield(get_tree().create_timer(0.05), "timeout")
+	ani.visible = true
+	yield(get_tree().create_timer(0.07), "timeout")
+	ani.visible = false
+	yield(get_tree().create_timer(0.01), "timeout")
+	ani.visible = true

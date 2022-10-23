@@ -145,8 +145,10 @@ func apply_squash_squeeze():
 func _on_Hurtbox_area_entered(area):
 	if (area.is_in_group("hitbox")):
 		var knockpower = Vector2(-knockback, 0)
-		knockpower = knockpower.rotated(get_angle_to(area.get_parent().position))
+		print(area.get_parent())
+		knockpower = knockpower.rotated(position.angle_to_point(area.get_parent().position))
 		knockpower *= Vector2(1, 1)
+		knockpower *= -1
 		velocity = knockpower
 		blink()
 		blink()
