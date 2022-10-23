@@ -1,10 +1,6 @@
 extends KinematicBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 export var move_speed := 100
 export var gravity := 1500
 export var acceleration := 2000
@@ -14,8 +10,6 @@ export var current_friction := 2000
 export var max_horizonzal_speed := 480
 export var max_fall_speed := 1000
 export var jump_height := -1000
-export var knockback := 600
-export var health := 3
 export var squash_speed := 0.05
 
 var touching_ground := false
@@ -30,6 +24,9 @@ var velocity := Vector2.ZERO
 var motion := Vector2.ZERO
 var UP := Vector2.UP
 
+const Stats = preload("scripts/Stats.gd")
+var stats = Stats.new()
+
 onready var ani = $PlayerSprite
 onready var aniArm = $Arm1
 onready var ground_ray = $RayCastContainer/RayGround
@@ -37,15 +34,14 @@ onready var ground_ray2 = $RayCastContainer/RayGround2
 onready var right_wall_ray = $RayCastContainer/RayWallRight
 onready var left_wall_ray = $RayCastContainer/RayWallLeft
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	stats.set_parent(self)
+	stats.level_progression = true
 
 func _physics_process(delta):
 	check_ground_logic()
 	handle_input(delta)
 	do_physics(delta)
-	pass
 	
 func check_ground_logic():
 	if (touching_ground and !(ground_ray.is_colliding() or ground_ray2.is_colliding())):
@@ -60,12 +56,10 @@ func check_ground_logic():
 		is_jumping = false
 		motion.y = 0
 		velocity.y = 0
-	pass
 
 func handle_input(var delta):
 	handle_movement(delta)
 	handle_jumping(delta)
-	pass
 	
 func handle_movement(delta):
 	if (Input.is_action_pressed("move_right")):
@@ -135,26 +129,24 @@ func do_physics(var delta):
 	motion = move_and_slide(motion, UP)
 	
 	apply_squash_squeeze()
-	pass
 	
 func apply_squash_squeeze():
 	ani.scale.x = lerp(ani.scale.x,2,squash_speed)
 	ani.scale.y = lerp(ani.scale.y,2,squash_speed)
 
-
 func _on_Hurtbox_area_entered(area):
 	if (area.is_in_group("hitbox")):
-		var knockpower = Vector2(-knockback, 0)
+		var knockpower = Vector2(-stats.knockback, 0)
 		print(area.get_parent())
 		knockpower = knockpower.rotated(position.angle_to_point(area.get_parent().position))
 		knockpower *= Vector2(1, 1)
 		knockpower *= -1
 		velocity = knockpower
 		yield(blink(), "completed")
-		health -= 1
-		if (health <= 0):
-			queue_free()
-	pass # Replace with function body.
+		stats.health -= 1
+		if (stats.health <= 0):
+			stats.health = 0
+			visible = false
 	
 func blink():
 	ani.visible = false
@@ -164,4 +156,3 @@ func blink():
 	ani.visible = false
 	yield(get_tree().create_timer(0.01), "timeout")
 	ani.visible = true
-	

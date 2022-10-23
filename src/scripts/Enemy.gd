@@ -8,6 +8,4 @@ const ENEMIES = [
 var rng = RandomNumberGenerator.new()
 
 func get_enemy() -> KinematicBody2D:
-	var i = randi() % 2
-	print(i, " | ", ENEMIES.size())
-	return ENEMIES[i].instance()
+	return ENEMIES[randi() % 2].instance()

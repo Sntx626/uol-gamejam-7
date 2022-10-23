@@ -6,16 +6,14 @@ extends AnimatedSprite
 # var b = "text"
 # Called when the node enters the scene tree for the first time.
 
-export var attackSpeed = 15
-export var attackDamage = 10
-export var knockback = 1000
-export var damage := 100
+
 var is_swinging := false
 
 var position_right = Vector2(16, -41)
 var position_left = Vector2(-223, -41)
 
-onready var parentAni = get_parent().get_parent().get_node("PlayerSprite")
+onready var parent = get_parent().get_parent()
+onready var parentAni = parent.get_node("PlayerSprite")
 onready var sword := $SwordArea/Sword
 
 func _ready():
@@ -45,7 +43,7 @@ func handle_sword(var delta):
 			$SwordArea.monitorable = true
 			$SwordArea.monitoring = true
 		is_swinging = true
-		speed_scale = attackSpeed/10
+		speed_scale = parent.stats.attackSpeed/10
 		play("hit")
 		yield(self, "animation_finished")
 		if ($SwordArea):

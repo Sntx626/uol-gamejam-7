@@ -23,16 +23,20 @@ func _ready():
 			bounds_min.y = int(pos.y)
 		elif pos.y > bounds_max.y:
 			bounds_max.y = int(pos.y)
-	print(bounds_min, bounds_max)
 	for x in range(bounds_min.x+1, bounds_max.x):
 		for y in range(bounds_min.y+1, bounds_max.y):
 			if get_cell(x, y) == -1:
 				set_cell(x, y, 2, false, false, false, Vector2(0, 0))
-	#update_dirty_quadrants()
-	#save_current_map("simple2")
+	update_dirty_quadrants()
+	save_current_map("simple7")
 	clear()
 	maps.append(map_loader.load_map("simple1"))
 	maps.append(map_loader.load_map("simple2"))
+	maps.append(map_loader.load_map("simple3"))
+	maps.append(map_loader.load_map("simple4"))
+	maps.append(map_loader.load_map("simple5"))
+	maps.append(map_loader.load_map("simple6"))
+	maps.append(map_loader.load_map("simple7"))
 	#manage_loaded_maps(1)
 
 func _physics_process(delta):

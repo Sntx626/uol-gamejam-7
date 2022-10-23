@@ -39,18 +39,20 @@ func get_target_path(target_pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+export var exp_given := 50
 func _on_Area2D_area_entered(area):
 	if (area.is_in_group("Sword")):
 		var sword = area.get_parent()
 		if (sword.is_swinging):
-			var knockpower = Vector2(sword.knockback, 0)
+			var knockpower = Vector2(sword.parent.stats.knockback, 0)
 			knockpower = knockpower.rotated(position.angle_to_point(sword.get_parent().get_parent().position))
 			#print(sword.get_parent().get_parent().position, "|", position)
 			velocity = knockpower
 			#print(knockpower)
 			yield(blink(), "completed")
-			health -= sword.damage
+			health -= sword.parent.stats.attackDamage
 			if (health <= 0):
+				sword.get_parent().get_parent().stats.giveExp(exp_given)
 				queue_free()
 		
 func blink():

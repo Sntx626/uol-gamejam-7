@@ -18,6 +18,9 @@ func _ready():
 	current_level = Vector2(0,0)
 	current_level_center = Vector2(0,0)
 
+func getPlayer():
+	return player
+
 func _physics_process(delta):
 	update_current_level()
 
