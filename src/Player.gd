@@ -167,7 +167,8 @@ func _on_Hurtbox_area_entered(area):
 		yield(blink(), "completed")
 		health -= 1
 		if (health <= 0):
-			queue_free()
+			health = 0
+			visible = false
 	pass # Replace with function body.
 	
 func blink():
