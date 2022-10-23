@@ -6,10 +6,10 @@ extends AnimatedSprite
 # var b = "text"
 # Called when the node enters the scene tree for the first time.
 
-export var attackSpeed = 10
+export var attackSpeed = 15
 export var attackDamage = 10
 export var knockback = 1000
-
+export var damage := 100
 var is_swinging := false
 
 var position_right = Vector2(16, -41)

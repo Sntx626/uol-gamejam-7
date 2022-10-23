@@ -9,6 +9,7 @@ var velocity = Vector2.ZERO
 var path = []
 var threshold = 16
 var nav = null
+export var health := 100
 onready var ani = $AnimatedSprite
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,8 +48,10 @@ func _on_Area2D_area_entered(area):
 			#print(sword.get_parent().get_parent().position, "|", position)
 			velocity = knockpower
 			#print(knockpower)
-			blink()
-			blink()
+			yield(blink(), "completed")
+			health -= sword.damage
+			if (health <= 0):
+				queue_free()
 		
 func blink():
 	ani.visible = false

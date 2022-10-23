@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 var velocity := Vector2()
 var direction := -1
+export var health := 100
 onready var ani = $AnimatedSprite
 onready var ground_ray_cast = $GroundRayCast
 # Declare member variables here. Examples:
@@ -49,8 +50,10 @@ func _on_Area2D_area_entered(area):
 			#print(sword.get_parent().get_parent().position, "|", position)
 			velocity = knockpower
 			#print(knockpower)
-			blink()
-			blink()
+			yield(blink(), "completed")
+			health -= sword.damage
+			if (health <= 0):
+				queue_free()
 		
 func blink():
 	ani.visible = false

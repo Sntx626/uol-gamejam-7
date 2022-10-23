@@ -15,7 +15,7 @@ export var max_horizonzal_speed := 480
 export var max_fall_speed := 1000
 export var jump_height := -1000
 export var knockback := 600
-
+export var health := 3
 export var squash_speed := 0.05
 
 var touching_ground := false
@@ -150,8 +150,10 @@ func _on_Hurtbox_area_entered(area):
 		knockpower *= Vector2(1, 1)
 		knockpower *= -1
 		velocity = knockpower
-		blink()
-		blink()
+		yield(blink(), "completed")
+		health -= 1
+		if (health <= 0):
+			queue_free()
 	pass # Replace with function body.
 	
 func blink():
