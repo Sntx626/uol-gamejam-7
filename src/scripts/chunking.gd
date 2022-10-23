@@ -3,6 +3,7 @@ extends TileMap
 const Tile = preload("Tile.gd")
 const Map = preload("Map.gd")
 const Map_Loader = preload("Map_Loader.gd")
+const Enemy = preload("Enemy.gd")
 export var DEFAULT_TTL = 3
 
 var map_loader = Map_Loader.new()
@@ -11,8 +12,27 @@ var maps = [] # needs to contain at least one map!
 var loaded_maps = {}
 
 func _ready():
+	var bounds_min := Vector2.ZERO
+	var bounds_max := Vector2.ZERO
+	for pos in get_used_cells():
+		if pos.x < bounds_min.x:
+			bounds_min.x = int(pos.x)
+		elif pos.x > bounds_max.x:
+			bounds_max.x = int(pos.x)
+		if pos.y < bounds_min.y:
+			bounds_min.y = int(pos.y)
+		elif pos.y > bounds_max.y:
+			bounds_max.y = int(pos.y)
+	print(bounds_min, bounds_max)
+	for x in range(bounds_min.x+1, bounds_max.x):
+		for y in range(bounds_min.y+1, bounds_max.y):
+			if get_cell(x, y) == -1:
+				set_cell(x, y, 2, false, false, false, Vector2(0, 0))
+	#update_dirty_quadrants()
+	#save_current_map("simple2")
 	clear()
-	maps.append(map_loader.load_map("testing"))
+	maps.append(map_loader.load_map("simple1"))
+	maps.append(map_loader.load_map("simple2"))
 	#manage_loaded_maps(1)
 
 func _physics_process(delta):
@@ -20,7 +40,7 @@ func _physics_process(delta):
 
 func save_current_map(name:String):
 	var map = Map.new()
-	map.name = "testing"
+	map.name = name
 	for cell in get_used_cells():
 		var t = Tile.new(
 			cell,
@@ -76,6 +96,7 @@ func manage_loaded_maps(delta):
 
 func load_level(map:Map, level:Vector2):
 	var parent = get_parent().get_parent()
+	var enemy_tiles = []
 	for tile in map.get_tiles():
 		var pos = tile.get_position() + parent.level_dimensions * parent.level_scaling * level
 		set_cellv(
@@ -87,7 +108,15 @@ func load_level(map:Map, level:Vector2):
 			tile.get_autotile_coord() + parent.level_dimensions * level
 		)
 		update_bitmask_area(pos)
+		if tile.get_tile() == 2: #spawn enemies
+			enemy_tiles.append(tile)
+	if enemy_tiles.size() > 0:
+		for i in range(rng.randi_range(int(2*parent.level_difficulty),int(6*parent.level_difficulty))):
+			var tile = enemy_tiles[rng.randi_range(0, enemy_tiles.size()-1)]
+			var pos = tile.get_position() * parent.level_cell_size + parent.level_dimensions * parent.level_scaling * level * parent.level_cell_size
+			spawn_enemy(parent, pos)
 	loaded_maps[level] = [map, DEFAULT_TTL]
+	update_dirty_quadrants()
 
 func unload_level(level:Vector2):
 	var parent = get_parent().get_parent()
@@ -97,3 +126,10 @@ func unload_level(level:Vector2):
 			-1
 		)
 	loaded_maps.erase(level)
+
+func spawn_enemy(parent, pos:Vector2) -> void:
+	var e = Enemy.new().get_enemy()
+	e.position = pos
+	parent.add_child(e)
+	if e.has_method("init"):
+		e.init(parent)
