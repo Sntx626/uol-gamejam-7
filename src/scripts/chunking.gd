@@ -11,8 +11,26 @@ var maps = [] # needs to contain at least one map!
 var loaded_maps = {}
 
 func _ready():
+	var bounds_min := Vector2.ZERO
+	var bounds_max := Vector2.ZERO
+	for pos in get_used_cells():
+		if pos.x < bounds_min.x:
+			bounds_min.x = int(pos.x)
+		elif pos.x > bounds_max.x:
+			bounds_max.x = int(pos.x)
+		if pos.y < bounds_min.y:
+			bounds_min.y = int(pos.y)
+		elif pos.y > bounds_max.y:
+			bounds_max.y = int(pos.y)
+	print(bounds_min, bounds_max)
+	for x in range(bounds_min.x+1, bounds_max.x):
+		for y in range(bounds_min.y+1, bounds_max.y):
+			if get_cell(x, y) == -1:
+				set_cell(x, y, 2, false, false, false, Vector2(0, 0))
+	#update_dirty_quadrants()
+	#save_current_map("simple1")
 	clear()
-	maps.append(map_loader.load_map("testing"))
+	maps.append(map_loader.load_map("simple1"))
 	#manage_loaded_maps(1)
 
 func _physics_process(delta):
@@ -20,7 +38,7 @@ func _physics_process(delta):
 
 func save_current_map(name:String):
 	var map = Map.new()
-	map.name = "testing"
+	map.name = name
 	for cell in get_used_cells():
 		var t = Tile.new(
 			cell,
@@ -91,8 +109,10 @@ func load_level(map:Map, level:Vector2):
 			tile.get_transpose(),
 			tile.get_autotile_coord() + parent.level_dimensions * level
 		)
-		update_bitmask_area(pos)
+		if (not tile.get_autotile_coord() == Vector2(3, 7)):
+			update_bitmask_area(pos)
 	loaded_maps[level] = [map, DEFAULT_TTL]
+	update_dirty_quadrants()
 
 func unload_level(level:Vector2):
 	var parent = get_parent().get_parent()
