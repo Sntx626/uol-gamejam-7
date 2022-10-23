@@ -40,7 +40,7 @@ func _physics_process(delta):
 func _on_Area2D_body_entered(body):
 	pass
 
-
+export var exp_given := 50
 func _on_Area2D_area_entered(area):
 	if (area.is_in_group("Sword")):
 		var sword = area.get_parent()
@@ -53,7 +53,9 @@ func _on_Area2D_area_entered(area):
 			yield(blink(), "completed")
 			health -= sword.damage
 			if (health <= 0):
+				sword.get_parent().get_parent().giveExp(exp_given)
 				queue_free()
+			
 		
 func blink():
 	ani.visible = false

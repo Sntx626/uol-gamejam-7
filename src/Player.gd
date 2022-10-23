@@ -36,7 +36,18 @@ onready var ground_ray = $RayCastContainer/RayGround
 onready var ground_ray2 = $RayCastContainer/RayGround2
 onready var right_wall_ray = $RayCastContainer/RayWallRight
 onready var left_wall_ray = $RayCastContainer/RayWallLeft
+var level := 1
+var experience := 0
+var experience_req := 100
 
+func giveExp(amount):
+	experience += amount
+	while experience >= experience_req:
+		experience -= experience_req
+
+func LvlUp():
+	level += 1
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
